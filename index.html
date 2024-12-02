@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เครื่องคำนวณเงินกู้</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .info-section {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .calculator-container {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            height: fit-content;
+        }
+        .loan-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Kanit', sans-serif;
+        }
+        #calculateBtn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #f6d365, #fda085);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #calculateBtn:hover {
+            transform: scale(1.02);
+        }
+        #result {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .result-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .info-note {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        .loan-type-section {
+            margin-bottom: 20px;
+        }
+        .loan-type-header {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .info-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .loan-details {
+            margin-top: 20px;
+        }
+        .loan-details h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .loan-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .loan-details .icon {
+            margin-right: 10px;
+            color: #fda085;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-section">
+            <h2 class="loan-title">เตรียมตัวก่อนกู้</h2>
+            
+            <div class="loan-type-section">
+                <div class="info-note">
+                    <h3>ข้อสำคัญในการคำนวณ</h3>
+                    <ol>
+                        <li>ผลลัพธ์เป็นเพียงตัวเลขประมาณการเท่านั้น</li>
+                        <li>การคำนวณนี้ไม่ได้คำนึงถึงคุณสมบัติของผู้กู้ซึ่งการพิจารณาเงินกู้ต้องเป็นไปตามเงื่อนไขที่ผู้ให้กู้กำหนด</li>
+                        <li>แนะนำให้สอบถามรายละเอียดเพิ่มเติมจากสถาบันการเงินที่ท่านสนใจ</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="loan-details">
+                <h3>การคำนวณนี้กำหนดให้</h3>
+                <p><span class="icon">✓</span> ใช้หลักการคิดดอกเบี้ยแบบลดต้นลดดอก</p>
+                <p><span class="icon">✓</span> ผ่อนชำระเท่ากันทุกเดือน เป็นเวลาอย่างน้อย 1 ปี</p>
+                <p><span class="icon">✓</span> อัตราดอกเบี้ยเงินกู้คงที่ตลอดการกู้ยืม</p>
+                <p><span class="icon">✓</span> ต้องชำระหนี้เต็มจำนวนตามกำหนดทุกงวด</p>
+                <p><span class="icon">✓</span> ไม่รวมค่าใช้จ่ายอื่นๆ ในการกู้</p>
+            </div>
+
+            <img src="รูปภาพ.png" alt="สัญญาการกู้เงิน" class="info-image">
+
+            <div class="info-note">
+                <h3>ข้อควรรู้ก่อนทำ "สัญญากู้ยืมเงิน"</h3>
+                <ul>
+                    <li>กู้ยืมเงินเกิน 2,000 บาทขึ้นไป ต้องมีสัญญาการกู้ยืมเงินเป็นลายลักษณ์อักษร</li>
+                    <li>ดอกเบี้ยเงินกู้ต้องไม่เกินร้อยละ 15 ต่อปี</li>
+                    <li>สัญญาต้องระบุข้อมูลสำคัญเช่น วันที่ ชื่อ-นามสกุล จำนวนเงิน เงื่อนไขการชำระ</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="calculator-container">
+            <h2 class="loan-title">เครื่องคำนวณเงินกู้</h2>
+            <div class="input-group">
+                <label>จำนวนเงินกู้ (บาท)</label>
+                <input type="number" id="principal" placeholder="กรอกจำนวนเงินกู้">
+            </div>
+            <div class="input-group">
+                <label>อัตราดอกเบี้ยต่อปี (%)</label>
+                <input type="number" id="interestRate" placeholder="กรอกอัตราดอกเบี้ย">
+            </div>
+            <div class="input-group">
+                <label>ระยะเวลากู้ (ปี)</label>
+                <input type="number" id="years" placeholder="กรอกระยะเวลากู้">
+            </div>
+            
+            <button id="calculateBtn">คำนวณเงินกู้</button>
+            
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value);
+            const years = parseFloat(document.getElementById('years').value);
+            const resultDiv = document.getElementById('result');
+
+            if (isNaN(principal) || isNaN(interestRate) || isNaN(years)) {
+                resultDiv.innerHTML = '<p style="color:red;">กรุณากรอกข้อมูลให้ครบถ้วน</p>';
+                return;
+            }
+
+            const rate = interestRate / 100;
+            const monthlyInterest = rate / 12;
+            const totalMonths = years * 12;
+            
+            const monthlyPayment = principal * 
+                (monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) / 
+                (Math.pow(1 + monthlyInterest, totalMonths) - 1);
+            
+            const totalPayment = monthlyPayment * totalMonths;
+            const totalInterest = totalPayment - principal;
+            const firstYearPayment = monthlyPayment * 12;
+
+            resultDiv.innerHTML = `
+                <h3>ผลการคำนวณ</h3>
+                <div class="result-detail">
+                    <span>ชำระรายเดือน</span>
+                    <strong>${monthlyPayment.toFixed(2)} บาท</strong>
+                </div>
+                <div class="result-detail">
+                    <span>จำนวนเงินที่ต้องจ่ายทั้งหมด</span>
+                    <strong>${totalPayment.toFixed(2)} บาท</strong>
+                </div>
+                <div class="result-detail">
+                    <span>ดอกเบี้ยรวม</span>
+                    <strong>${totalInterest.toFixed(2)} บาท</strong>
+                </div>
+                <div class="result-detail">
+                    <span>การชำระเงินปีแรก</span>
+                    <strong>${firstYearPayment.toFixed(2)} บาท</strong>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
